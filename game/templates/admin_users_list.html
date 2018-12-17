@@ -1,0 +1,96 @@
+{% extends "admin.html" %}
+
+
+{% block stylesheet %}
+    <link href="/static/css/admin.css" rel="stylesheet" media="screen">
+    <link href="/static/css/admin_users.css" rel="stylesheet" media="screen">
+{% endblock %}
+
+
+{% block content_admin %}
+    <div id="table_users_list"></div>
+    <div class="titol_list">Users List</div>
+    <div class="page_button_right"> <button class="bx bx-push bx-redstencil" type="button" onclick="users_actives()" name="list">Active Users</button></div>
+    <div class="page_button_left"> <button class="bx bx-push bx-redstencil" type="button" onclick="user_results()" name="list">Results Users</button></div>
+
+
+{% endblock %}
+table_users_acabada
+
+{% block javascript %}
+
+        <script>
+
+            function users_actives() {
+                window.location.href = '/es/admin/users'
+            }
+
+            function user_results() {
+                window.location.href = '/es/admin/users_results'
+            }
+
+            function update_users() {
+                $.ajax({
+                    url: '/es/ws/estat_users/',
+                    success: function(data) {
+                        console.log(data)
+
+                        $("#table_users_list").empty();
+                        var table = '<table style="width=50%;">';
+                        table +='<thead><tr>';
+                        table+="<td style=font-size:14px;font-weight:bold;cell>ID</td>";
+                        table+="<td style=font-size:14px;font-weight:bold;cell>NUM</td>";
+                        table+="<td style=font-size:14px;font-weight:bold;width:150px;cell>ESTAT</td>";
+                        table+="<td style=font-size:14px;font-weight:bold;cell>SESSION</td>";
+                        table+="<td style=font-size:14px;font-weight:bold;cell>GAME</td>";
+                        table+="<td style=font-size:14px;font-weight:bold;width:150px;cell>STATE</td>";
+                        table+="<td style=font-size:14px;font-weight:bold;cell>START</td>";
+                        table+="<td style=font-size:14px;font-weight:bold;cell>ENDED</td>";
+                        table+="<td style=font-size:14px;font-weight:bold;cell>GAME 1</td>";
+                        table+="<td style=font-size:14px;font-weight:bold;cell>GAME 2</td>";
+                        table+="<td style=font-size:14px;font-weight:bold;cell>GAME 3</td>";
+                        table+="<td style=font-size:14px;font-weight:bold;cell>GAME 4</td>";
+                        table+="<td style=font-size:14px;font-weight:bold;cell>POINTS</td>";
+                        table+='</tr></thead>';
+                        table +='<tbody><tr>';
+                        table +='<div class="scrollit">';
+                        table +='<table style="width=50%;">';;
+                        for (var i = 0; i < data.users_all.length; i++) {
+                            console.log(data.users_all[i].total)
+                            table += '<tr>';
+                            table += '<td style=font-size:14px;font-weight:bold;cell>' + data.users_all[i].id+ '</td>';
+                            table += '<td style=font-size:14px;cell>' + data.users_all[i].name+ '</td>';
+                            table += '<td style=font-size:14px;width:150px;cell>' + data.users_all[i].estat_user+ '</td>';
+                            table += '<td style=font-size:14px;cell>' + data.users_all[i].session_game+ '</td>';
+                            table += '<td style=font-size:14px;font-weight:bold;cell>' + data.users_all[i].partida_activa+ '</td>';
+                            table += '<td style=font-size:14px;width:150px;cell>' + data.users_all[i].estat+ '</td>';
+                            table += '<td style=font-size:14px;cell>' + data.users_all[i].jocs_registrats+ '</td>';
+                            table += '<td style=font-size:14px;cell>' + data.users_all[i].jocs_finalitzats+ '</td>';
+                            table += '<td style=font-size:14px;cell>' + data.users_all[i].game1+ '</td>';
+                            table += '<td style=font-size:14px;cell>' + data.users_all[i].game2+ '</td>';
+                            table += '<td style=font-size:14px;cell>' + data.users_all[i].game3+ '</td>';
+                            table += '<td style=font-size:14px;cell>' + data.users_all[i].game4+ '</td>';
+                            table += '<td style=font-size:14px;font-weight:bold;cell>' + data.users_all[i].total+ '</td>';
+                            table += '</tr>';
+                        }
+
+                        table +='</table>';
+                        table +='</div>';
+                        table +='</td></tr></tbody>';
+                        table +='</table>';
+                        $("#table_users_list").append(table);
+
+                        //setTimeout(function(){update_estat()}, 500);
+                    },
+                    error: function(data) {
+                        //setTimeout(function(){update_estat()}, 500);
+                    }
+                });
+            }
+
+            $(document).ready(function() {
+                update_users();
+            });
+        </script>
+
+{% endblock %}

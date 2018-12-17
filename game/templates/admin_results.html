@@ -1,0 +1,211 @@
+{% extends "admin.html" %}
+
+
+{% block stylesheet %}
+    <link href="/static/css/admin.css" rel="stylesheet" media="screen">
+    <link href="/static/css/admin_results.css" rel="stylesheet" media="screen">
+{% endblock %}
+
+
+{% block content_admin %}
+
+    <div id="table_results1"></div>
+    <div id="table_results2"></div>
+
+
+{% endblock %}
+
+{% block javascript %}
+
+        <script>
+
+            function update_estat() {
+                $.ajax({
+                    url: '/es/ws/basic_analysis/',
+                    success: function(data) {
+
+                        console.log(data)
+                        ///// Prisoner 1
+
+                        var perc = 0
+
+                        $("#table_results1").empty();
+
+                        var table = '<table style="width=50%;">';
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:16px;font-weight:bold;cell>Participants</td>";
+                        table += "</tr>";
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:14px;font-weight:bold;cell>Number of participants</td>";
+                        table += "<td style=font-size:14px;cell;text-align: left>" + data.participants.number_of_participants +"</td>";
+                        table += "</tr>";
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:16px;font-weight:bold;cell>Game 1</td>";
+                        table += "</tr>";
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:14px;font-weight:bold;cell>Expected Cooperation</td>";
+                        perc = (data.standard.cooperation_expected_standard/(data.standard.defection_expected_standard+data.standard.cooperation_expected_standard))*100
+                        table += "<td style=font-size:14px;cell>" + data.standard.cooperation_expected_standard + " ( "+parseFloat(perc).toFixed(0)+"% )"+"</td>";
+                        table += "</tr>";
+
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:14px;font-weight:bold;cell>Expected Defection</td>";
+                        perc = (data.standard.defection_expected_standard/(data.standard.defection_expected_standard+data.standard.cooperation_expected_standard))*100
+                        table += "<td style=font-size:14px;cell>" + data.standard.defection_expected_standard + " ( "+parseFloat(perc).toFixed(0)+"% )"+"</td>";
+                        table += "</tr>";
+
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:14px;font-weight:bold;cell>Cooperation</td>";
+                        perc = (data.standard.cooperation_standard/(data.standard.cooperation_standard+data.standard.defection_standard))*100
+                        table += "<td style=font-size:14px;cell>" + data.standard.cooperation_standard + " ( "+parseFloat(perc).toFixed(0)+"% )"+"</td>";
+                        table += "</tr>";
+
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:14px;font-weight:bold;cell>Defection</td>";
+                        perc = (data.standard.defection_standard/(data.standard.cooperation_standard+data.standard.defection_standard))*100
+                        table += "<td style=font-size:14px;cell>" + data.standard.defection_standard + " ( "+parseFloat(perc).toFixed(0)+"% )"+"</td>";
+                        table += "</tr>";
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:16px;font-weight:bold;cell>Game 2</td>";
+                        table += "</tr>";
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:14px;font-weight:bold;cell>Expected Cooperation</td>";
+                        perc = (data.interact.cooperation_expected_interact/(data.interact.defection_expected_interact+data.interact.cooperation_expected_interact))*100
+                        table += "<td style=font-size:14px;cell>" + data.interact.cooperation_expected_interact + " ( "+parseFloat(perc).toFixed(0)+"% )"+"</td>";
+                        table += "</tr>";
+
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:14px;font-weight:bold;cell>Expected Defection</td>";
+                        perc = (data.interact.defection_expected_interact/(data.interact.defection_expected_interact+data.interact.cooperation_expected_interact))*100
+                        table += "<td style=font-size:14px;cell>" + data.interact.defection_expected_interact + " ( "+parseFloat(perc).toFixed(0)+"% )"+"</td>";
+                        table += "</tr>";
+
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:14px;font-weight:bold;cell>Cooperation</td>";
+                        perc = (data.interact.cooperation_interact/(data.interact.cooperation_interact+data.interact.defection_interact))*100
+                        table += "<td style=font-size:14px;cell>" + data.interact.cooperation_interact + " ( "+parseFloat(perc).toFixed(0)+"% )"+"</td>";
+                        table += "</tr>";
+
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:14px;font-weight:bold;cell>Defection</td>";
+                        perc = (data.interact.defection_interact/(data.interact.cooperation_interact+data.interact.defection_interact))*100
+                        table += "<td style=font-size:14px;cell>" + data.interact.defection_interact + " ( "+parseFloat(perc).toFixed(0)+"% )"+"</td>";
+                        table += "</tr>";
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:16px;font-weight:bold;cell>Game 3</td>";
+                        table += "</tr>";
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:14px;font-weight:bold;cell>Expected Cooperation</td>";
+                        perc = (data.voice.cooperation_expected_voice/(data.voice.defection_expected_voice+data.voice.cooperation_expected_voice))*100
+                        table += "<td style=font-size:14px;cell>" + data.voice.cooperation_expected_voice + " ( "+parseFloat(perc).toFixed(0)+"% )"+"</td>";
+                        table += "</tr>";
+
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:14px;font-weight:bold;cell>Expected Defection</td>";
+                        perc = (data.voice.defection_expected_voice/(data.voice.defection_expected_voice+data.voice.cooperation_expected_voice))*100
+                        table += "<td style=font-size:14px;cell>" + data.voice.defection_expected_voice + " ( "+parseFloat(perc).toFixed(0)+"% )"+"</td>";
+                        table += "</tr>";
+
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:14px;font-weight:bold;cell>Cooperation</td>";
+                        perc = (data.voice.cooperation_voice/(data.voice.cooperation_voice+data.voice.defection_voice))*100
+                        table += "<td style=font-size:14px;cell>" + data.voice.cooperation_voice + " ( "+parseFloat(perc).toFixed(0)+"% )"+"</td>";
+                        table += "</tr>";
+
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:14px;font-weight:bold;cell>Defection</td>";
+                        perc = (data.voice.defection_voice/(data.voice.cooperation_voice+data.voice.defection_voice))*100
+                        table += "<td style=font-size:14px;cell>" + data.voice.defection_voice + " ( "+parseFloat(perc).toFixed(0)+"% )"+"</td>";
+                        table += "</tr>";
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:16px;font-weight:bold;cell>Game 4</td>";
+                        table += "</tr>";
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:14px;font-weight:bold;cell>Expected Cooperation</td>";
+                        perc = (data.wall.cooperation_expected_wall/(data.wall.defection_expected_wall+data.wall.cooperation_expected_wall))*100
+                        table += "<td style=font-size:14px;cell>" + data.wall.cooperation_expected_wall + " ( "+parseFloat(perc).toFixed(0)+"% )"+"</td>";
+                        table += "</tr>";
+
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:14px;font-weight:bold;cell>Expected Defection</td>";
+                        perc = (data.wall.defection_expected_wall/(data.wall.defection_expected_wall+data.wall.cooperation_expected_wall))*100
+                        table += "<td style=font-size:14px;cell>" + data.wall.defection_expected_wall + " ( "+parseFloat(perc).toFixed(0)+"% )"+"</td>";
+                        table += "</tr>";
+
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:14px;font-weight:bold;cell>Cooperation</td>";
+                        perc = (data.wall.cooperation_wall/(data.wall.cooperation_wall+data.wall.defection_wall))*100
+                        table += "<td style=font-size:14px;cell>" + data.wall.cooperation_wall + " ( "+parseFloat(perc).toFixed(0)+"% )"+"</td>";
+                        table += "</tr>";
+
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:14px;font-weight:bold;cell>Defection</td>";
+                        perc = (data.wall.defection_wall/(data.wall.cooperation_wall+data.wall.defection_wall))*100
+                        table += "<td style=font-size:14px;cell>" + data.wall.defection_wall + " ( "+parseFloat(perc).toFixed(0)+"% )"+"</td>";
+                        table += "</tr>";
+
+                        $("#table_results1").append(table);
+
+
+
+                        $("#table_results2").empty();
+                        var table = '<table style="width=50%;">';
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:16px;font-weight:bold;cell>Strategies</td>";
+                        table += "</tr>";
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:14px;font-weight:bold;cell>Cooperation - Cooperation</td>";
+                        table += "<td style=font-size:14px;>" + data.strategies.coordination_cooperate + "</td>";
+                        table += "</tr>";
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:14px;font-weight:bold;cell>Defection - Defection</td>";
+                        table += "<td style=font-size:14px;>" + data.strategies.coordination_defect + "</td>";
+                        table += "</tr>";
+
+                        table += "<tr style='cellpadding:10;'>";
+                        table += "<td style=font-size:14px;font-weight:bold;cell>Cooperation - Defection</td>";
+                        table += "<td style=font-size:14px;>" + data.strategies.anti_coordination + "</td>";
+                        table += "</tr>";
+
+
+                        $("#table_results2").append(table);
+
+
+                        setTimeout(function(){update_estat()}, 500);
+                    },
+                    error: function(data) {
+                        setTimeout(function(){update_estat()}, 500);
+                    }
+                });
+            }
+
+            $(document).ready(function() {
+                update_estat();
+            });
+        </script>
+
+{% endblock %}

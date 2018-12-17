@@ -1,0 +1,14 @@
+[
+
+    {"name": "slide1",
+        "millis": 10000 },
+
+    {"name": "slide2",
+        "millis": 10000 },
+
+    {"name": "slide3",
+        "millis": 10000 },
+
+    {"name": "slide4",
+        "millis": 10000}
+]

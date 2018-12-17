@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+    <link href="/static/css/joc_prisoner.css" rel="stylesheet" media="screen">
+{% endblock %}
+
+{% block title %}{{ text.joc_prisoner1.titol_pagina }}{% endblock %}
+
+{% block content %}
+
+    <div class="topdiv-centered">
+
+
+        <!--<div class="capsalera_background"></div>-->
+        <img src="/static/img/plain/game1_color.png" height="50px" width="50px" class="page_logo" id="page_logo_1" hidden/>
+        <img src="/static/img/plain/game2_color.png" height="50px" width="50px" class="page_logo" id="page_logo_2" hidden/>
+        <img src="/static/img/plain/game3_color.png" height="50px" width="50px" class="page_logo" id="page_logo_3" hidden/>
+        <img src="/static/img/plain/game4_color.png" height="50px" width="50px" class="page_logo" id="page_logo_4" hidden/>
+        <!--<div class="page_title">{{ text.joc_prisoner1.titol1 }}</div>-->
+        <!--<hr class="separador-top" />-->
+
+
+        <div class="text_info1"></div>
+        <div class="text_info2">{{ text.joc_prisoner1.text2 | safe }}</div>
+
+        <table class="taula_prisoner" width="800px;">
+            <tr><td>{{ text.joc_prisoner1.text_opcio_1 }}</td></tr>
+            <tr><td>{{ text.joc_prisoner1.text_opcio_2 }}</td></tr>
+            <tr><td>{{ text.joc_prisoner1.text_opcio_3 }}</td></tr>
+            <tr><td>{{ text.joc_prisoner1.text_opcio_4 }}</td></tr>
+        </table>
+
+        <div class="text_info4">{{ text.joc_prisoner1.text4 | safe }}</div>
+        <div class="text_info5">{{ text.joc_prisoner1.text5 | safe }}</div>
+        <div class="text_info6">{{ text.joc_prisoner1.text6 | safe }}</div>
+
+
+        <hr class="separador-bottom" />
+
+        <div class="page_button_right">
+            <button id="boto_enquesta" type="button" onclick="location.href='/{{ lang }}/user/joc_prisoner1_3'" name="logout" class="bx bx-push bx-redstencil" >
+                {{ text.common.seguent | safe }}
+            </button>
+        </div>
+
+    </div>
+{% endblock %}
+
+
+{% block javascript %}
+    <script>
+
+    $(document).ready(function() {
+
+        var game = '{{ user.session_game }}';
+        if (game == 'standard'){
+            $("#page_logo_1").show();
+            $(".text_info1").html('{{ text.joc_prisoner1.text1_joc_1 }}')
+        }
+        if (game == 'interact'){
+            $("#page_logo_2").show();
+            $(".text_info1").html('{{ text.joc_prisoner1.text1_joc_2 }}')
+        }
+        if (game == 'voice'){
+            $("#page_logo_3").show();
+            $(".text_info1").html('{{ text.joc_prisoner1.text1_joc_3 }}')
+        }
+        if (game == 'wall'){
+            $("#page_logo_4").show();
+            $(".text_info1").html('{{ text.joc_prisoner1.text1_joc_4 }}')
+            //var text_intro = '{{ text.joc_prisoner1.text1_joc_4 }}';
+            //var text_final = text_intro.replace("NAME", '<span class="text_name">{{ rival }}</span>');
+            //$(".text_info1").html(text_final)
+
+        }
+
+
+    });
+
+
+
+    </script>
+{% endblock %}
+

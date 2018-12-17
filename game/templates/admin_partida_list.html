@@ -1,0 +1,88 @@
+{% extends "admin.html" %}
+
+
+{% block stylesheet %}
+    <link href="/static/css/admin.css" rel="stylesheet" media="screen">
+    <link href="/static/css/admin_partida_list.css" rel="stylesheet" media="screen">
+{% endblock %}
+
+
+{% block content_admin %}
+    <div class="titol_partides">Games List</div>
+    <div id="table_partides"></div>
+
+    <div class="page_button_right"> <button class="bx bx-push bx-redstencil" type="button" onclick="games()" name="list">Games</button></div>
+
+{% endblock %}
+
+{% block javascript %}
+
+        <script>
+
+            function detailPartida(num_partida) {
+                window.location.href = '/es/admin/partida_detail/'+num_partida+'/'
+            }
+
+            function games() {
+                window.location.href = '/es/admin/partida'
+            }
+
+
+            function update_list() {
+                $.ajax({
+                    url: '/es/ws/llistat_partides/',
+                    success: function(data) {
+
+
+                        $("#table_partides").empty();
+                        var table = '<table style="width=50%;">';
+                        table +='<thead><tr>';
+                        table+="<td style=font-size:14px;width=10px;font-weight:bold;cell>ID</td>";
+                        table+="<td style=font-size:14px;width=10px;font-weight:bold;cell>CREATED</td>";
+                        table+="<td style=font-size:14px;width=400px;font-weight:bold;cell>STARTED</td>";
+                        table+="<td style=font-size:14px;width=200px;font-weight:bold;cell>ENDED</td>";
+                        table+="<td style=font-size:14px;width=200px;font-weight:bold;cell>STATE</td>";
+                        table+="<td style=font-size:14px;width=200px;font-weight:bold;cell>CLASS</td>";
+                        table+="<td style=font-size:14px;width=200px;font-weight:bold;cell>PLAYERS</td>";
+
+                        table+='</tr></thead>';
+                        table +='<tbody><tr>';
+                        table +='<div class="scrollit">';
+                        table +='<table style="width=50%;">';;
+                        for (var i = 0; i < data.partida.length; i++) {
+                            console.log(data.partida[i].id)
+                            table += '<tr>';
+                            table += '<td style=font-size:14px;cell>' + data.partida[i].id+ '</td>';
+                            table += '<td style=font-size:14px;cell>' + data.partida[i].data_creacio+ '</td>';
+                            table += '<td style=font-size:14px;cell>' + data.partida[i].data_inicialitzacion+ '</td>';
+                            table += '<td style=font-size:14px;cell>' + data.partida[i].data_finalitzacio+ '</td>';
+                            table += '<td style=font-size:14px;cell>' + data.partida[i].estat+ '</td>';
+                            table += '<td style=font-size:14px;cell>' + data.partida[i].classe+ '</td>';
+                            table += '<td style=font-size:14px;cell>' + '(' + data.partida[i].players+ ')' + '</td>';
+                            table += '</tr>';
+                        }
+
+                        table +='</table>';
+                        table +='</div>';
+                        table +='</td></tr></tbody>';
+                        table +='</table>';
+                        $("#table_partides").append(table);
+
+
+
+                        setTimeout(function(){update_list()}, 1000);
+                    },
+                    error: function(data) {
+                         setTimeout(function(){update_list()}, 1000);
+                    }
+                });
+            }
+
+            $(document).ready(function() {
+                update_list();
+            });
+        </script>
+
+
+
+{% endblock %}

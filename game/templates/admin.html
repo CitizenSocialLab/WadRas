@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %} | Registre usuaris partida{% endblock %}
+
+{% block content %}
+
+    <div class="topdiv-centered">
+
+        <div class="capsalera_background"></div>
+
+        <!-- <img src="/static/img/drbrain2/logo_dr_brain.png" class="page_logo" > -->
+
+        <div id="admin_text"/>ADMIN</div>
+
+        <div class="boto1">
+            {% if pagina == 'registre' %}
+                <button id="botons_admin" type="button" class="bx-push bx bx-redstencil" >
+                    REGISTER
+                </button>
+            {% else %}
+                <button id="botons_admin" type="button" onclick=" location.href='/admin/registre'" class="bx-push bx bx-redstencilwhite" >
+                    REGISTER
+                </button>
+            {% endif %}
+        </div>
+
+        <div class="boto2">
+            {% if pagina == 'partida' %}
+                <button id="botons_admin" type="button" class="bx-push bx bx-redstencil" >
+                    GAMES
+                </button>
+            {% else %}
+                <button id="botons_admin" type="button" onclick=" location.href='/admin/partida'" class="bx-push bx bx-redstencilwhite" >
+                    GAMES
+                </button>
+            {% endif %}
+        </div>
+
+        <div class="boto3">
+            {% if pagina == 'users' %}
+                <button id="botons_admin" type="button" class="bx-push bx bx-redstencil" >
+                    USERS
+                </button>
+            {% else %}
+                <button id="botons_admin" type="button" onclick=" location.href='/admin/users'" class="bx-push bx bx-redstencilwhite" >
+                    USERS
+                </button>
+            {% endif %}
+        </div>
+
+        <div class="boto4">
+            {% if pagina == 'results' %}
+                <button id="botons_admin" type="button" class="bx-push bx bx-redstencil" >
+                    RESULTS
+                </button>
+            {% else %}
+                <button id="botons_admin" type="button" onclick=" location.href='/admin/results'" class="bx-push bx bx-redstencilwhite" >
+                    RESULTS
+                </button>
+            {% endif %}
+        </div>
+
+
+
+
+
+
+
+        {% block content_admin %}{% endblock %}
+
+    </div>
+
+{% endblock %}

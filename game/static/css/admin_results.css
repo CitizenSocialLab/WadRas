@@ -1,0 +1,35 @@
+#table_results1 {
+    position: absolute;
+    top: 100px;
+    margin-top:10px;
+    margin-left:20px;
+    font-size:1.25em;
+
+}
+
+#table_results2 {
+    position: absolute;
+    top: 100px;
+    margin-top:10px;
+    margin-left:520px;
+    font-size:1.25em;
+}
+
+table {
+    border-collapse:collapse;
+    width: 100%;
+}
+td {
+    width:auto;
+    height:auto;
+    text-align:left;}
+
+tr.spaceUnder > td
+{
+  padding-bottom: 2em;
+}
+
+table{
+    width: 300px;
+}
+

@@ -1,0 +1,146 @@
+{% extends "admin.html" %}
+
+
+{% block stylesheet %}
+    <link href="/static/css/admin.css" rel="stylesheet" media="screen">
+    <link href="/static/css/admin_users.css" rel="stylesheet" media="screen">
+{% endblock %}
+
+
+{% block content_admin %}
+    <div id="table_users_list"></div>
+    <div class="titol_list">Users Results</div>
+    <div class="page_button_right"> <button class="bx bx-push bx-redstencil" type="button" onclick="users_actives()" name="list">Active Users</button></div>
+    <div class="page_button_left"> <button class="bx bx-push bx-redstencil" type="button" onclick="user_list()" name="list">List Users</button></div>
+
+
+{% endblock %}
+table_users_acabada
+
+{% block javascript %}
+
+        <script>
+
+            function users_actives() {
+                window.location.href = '/es/admin/users'
+            }
+
+            function user_list() {
+                window.location.href = '/es/admin/users_list'
+            }
+
+
+            function update_users() {
+                $.ajax({
+                    url: '/es/ws/estat_users/',
+                    success: function(data) {
+                        console.log(data)
+
+                        $("#table_users_list").empty();
+                        var table = '<table style="width=50%;">';
+                        table +='<thead><tr>';
+                        table+="<td style=font-size:12px;font-weight:bold;cell>ID</td>";
+                        table+="<td style=font-size:12px;font-weight:bold;cell>GAME 1</td>";
+                        table+="<td style=font-size:12px;font-weight:bold;cell>GAME 2</td>";
+                        table+="<td style=font-size:12px;font-weight:bold;cell>GAME 3</td>";
+                        table+="<td style=font-size:12px;font-weight:bold;cell>GAME 4</td>";
+                        table+="<td style=font-size:12px;font-weight:bold;cell>C</td>";
+                        table+="<td style=font-size:12px;font-weight:bold;cell>D</td>";
+                        table+="<td style=font-size:12px;font-weight:bold;cell>TOTAL</td>";
+                        table+='</tr></thead>';
+                        table +='<tbody><tr>';
+                        table +='<div class="scrollit">';
+                        table +='<table style="width=50%;">';
+
+                        if (data.users_results.length > 18){
+                            n_last_participants = 18;
+                        } else {
+                            n_last_participants = data.users_results.length;
+                        }
+                        for (var i = 0; i < n_last_participants; i++) {
+                            console.log(data.users_results[i].total)
+                            table += '<tr>';
+                            table += '<td style=font-size:12px;font-weight:bold;cell>' + data.users_results[i].id+ '</td>';
+                            table += '<td style=font-size:12px;cell>' + data.users_results[i].game1+ '</td>';
+                            table += '<td style=font-size:12px;cell>' + data.users_results[i].game2+ '</td>';
+                            table += '<td style=font-size:12px;cell>' + data.users_results[i].game3+ '</td>';
+                            table += '<td style=font-size:12px;cell>' + data.users_results[i].game4+ '</td>';
+                            table += '<td style=font-size:12px;font-weight:bold;cell>' + data.users_results[i].C+ '</td>';
+                            table += '<td style=font-size:12px;font-weight:bold;cell>' + data.users_results[i].D+ '</td>';
+                            table += '<td style=font-size:12px;font-weight:bold;cell>' + data.users_results[i].total+ '</td>';
+                            table += '</tr>';
+                        }
+
+                        perc_c_game1 = ((data.users_results_totals.c_game1/(data.users_results_totals.c_game1+data.users_results_totals.d_game1))*100).toFixed(1)
+                        perc_d_game1 = ((data.users_results_totals.d_game1/(data.users_results_totals.c_game1+data.users_results_totals.d_game1))*100).toFixed(1)
+                        perc_c_game2 = ((data.users_results_totals.c_game2/(data.users_results_totals.c_game2+data.users_results_totals.d_game2))*100).toFixed(1)
+                        perc_d_game2 = ((data.users_results_totals.d_game2/(data.users_results_totals.c_game2+data.users_results_totals.d_game2))*100).toFixed(1)
+                        perc_c_game3 = ((data.users_results_totals.c_game3/(data.users_results_totals.c_game3+data.users_results_totals.d_game3))*100).toFixed(1)
+                        perc_d_game3 = ((data.users_results_totals.d_game3/(data.users_results_totals.c_game3+data.users_results_totals.d_game3))*100).toFixed(1)
+                        perc_c_game4 = ((data.users_results_totals.c_game4/(data.users_results_totals.c_game4+data.users_results_totals.d_game4))*100).toFixed(1)
+                        perc_d_game4 = ((data.users_results_totals.d_game4/(data.users_results_totals.c_game4+data.users_results_totals.d_game4))*100).toFixed(1)
+
+                        table += '<tr style=background-color:#CD1919;opacity:0.8;>';
+                        table += '<td style=color:#ffffff;font-weight:bold;font-size:12px;cell>' + 'Coop.' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;cell>' + perc_c_game1 + ' %' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;cell>' + perc_c_game2 + ' %' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;cell>' + perc_c_game3 + ' %' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;cell>' + perc_c_game4 + ' %' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;font-weight:bold;cell>' + data.users_results_totals.perc_cooperation.toFixed(1) + '%' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;font-weight:bold;cell>' + '' +'</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;font-weight:bold;cell>' + '' + '</td>';
+                        table += '</tr>';
+
+                        table += '<tr style=background-color:#CD1919;opacity:0.8;>';
+                        table += '<td style=color:#ffffff;font-weight:bold;font-size:12px;cell>' + '' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;cell>' + data.users_results_totals.c_gain_game1 + ' pts.' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;cell>' + data.users_results_totals.c_gain_game2 + ' pts.' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;cell>' + data.users_results_totals.c_gain_game3 + ' pts.' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;cell>' + data.users_results_totals.c_gain_game4 + ' pts.' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;font-weight:bold;cell>' + data.users_results_totals.c_gain +' pts.' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;font-weight:bold;cell>' + '' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;font-weight:bold;cell>' + '' + '</td>';
+                        table += '</tr>';
+
+                        table += '<tr style=background-color:#808080;opacity:0.8;>';
+                        table += '<td style=color:#ffffff;font-weight:bold;font-size:12px;cell>' + 'Def.' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;cell>' + perc_d_game1 + ' %' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;cell>' + perc_d_game2 + ' %' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;cell>' + perc_d_game3 + ' %' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;cell>' + perc_d_game4 + ' %' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;font-weight:bold;cell>' + '' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;font-weight:bold;cell>' + data.users_results_totals.perc_defection.toFixed(1) + '%' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;font-weight:bold;cell>' + '' + '</td>';
+                        table += '</tr>';
+
+                        table += '<tr style=background-color:#808080;opacity:0.8;>';
+                        table += '<td style=color:#ffffff;font-weight:bold;font-size:12px;cell>' + '' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;cell>' + data.users_results_totals.d_gain_game1 + ' pts.' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;cell>' + data.users_results_totals.d_gain_game2 + ' pts.' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;cell>' + data.users_results_totals.d_gain_game3 + ' pts.' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;cell>' + data.users_results_totals.d_gain_game4 + ' pts.' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;font-weight:bold;cell>' + '' +'</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;font-weight:bold;cell>' + data.users_results_totals.d_gain +' pts.' + '</td>';
+                        table += '<td style=color:#ffffff;font-size:12px;font-weight:bold;cell>' + '' + '</td>';
+                        table += '</tr>';
+
+                        table +='</table>';
+                        table +='</div>';
+                        table +='</td></tr></tbody>';
+                        table +='</table>';
+                        $("#table_users_list").append(table);
+
+                        //setTimeout(function(){update_estat()}, 500);
+                    },
+                    error: function(data) {
+                        //setTimeout(function(){update_estat()}, 500);
+                    }
+                });
+            }
+
+            $(document).ready(function() {
+                update_users();
+            });
+        </script>
+
+{% endblock %}

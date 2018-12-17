@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+    <link href="/static/css/inici.css" rel="stylesheet" media="screen">
+{% endblock %}
+
+{% block title %}{{ text.registre.titol_pagina }} | {{ user.nickname }}{% endblock %}
+
+{% block content %}
+
+    <div class="topdiv-centered">
+
+        <div class="user_info">
+            <span class="glyphicon glyphicon-user" style="margin-left: 20px;"></span>
+            {{ user.nickname }}
+        </div>
+        
+        <img src="/static/img/plain/game1_color.png" height="50px" width="50px" class="page_logo" id="page_logo_1" hidden/>
+        <img src="/static/img/plain/game2_color.png" height="50px" width="50px" class="page_logo" id="page_logo_2" hidden/>
+        <img src="/static/img/plain/game3_color.png" height="50px" width="50px" class="page_logo" id="page_logo_3" hidden/>
+        <img src="/static/img/plain/game4_color.png" height="50px" width="50px" class="page_logo" id="page_logo_4" hidden/>
+
+
+        <!--<div class="page_title">{{ text.registre.titol }}</div>-->
+        <!--<hr class="separador-top" />-->
+
+
+        <div class="text_inici">
+            {{ text.registre.text_inici | safe}}
+        </div>
+
+        <!-- Boton -->
+
+        <form method="post" action="/{{ lang }}/user/registre">
+            <button id="boto_jugar" type="submit" name="jugar" class="bx-push bx bx-redstencil" >
+                {{ text.registre.boto | safe}}
+            </button>
+        </form>
+
+        <!-- Waiting -->
+
+        <div class="esperant_partida" hidden>
+            <i id="presentacio_waiting"class="fa fa-spinner fa-spin fa-5x"></i>
+        </div>
+        <div class="esperant_partida_text" hidden>{{ text.registre.espera_registro }}</div>
+
+
+
+        <div class="error_partida">
+            {% if error_partida %}{{ text.registre.error_partida | safe }}{% endif %}
+        </div>
+        <div class="error_partida">
+            {% if error_partida_2 %}{{ text.registre.error_partida_2 | safe }}{% endif %}
+        </div>
+
+        <hr class="separador-bottom" />
+
+        <div class="page_button_left">
+            <button id="boto_sortir" type="button" onclick="location.href='/{{ lang }}/user/logout'" name="logout" class="bx-push bx bx-white" >
+                {{ text.common.sortir_joc }}
+            </button>
+        </div>
+
+    </div>
+
+{% endblock %}
+{% block javascript %}
+
+<script>
+
+    function getWaiting() {
+        if ({{waiting}} == 1) {
+            console.log('1')
+            $('#boto_jugar').hide();
+            $('#boto_sortir').hide();
+
+            $('.esperant_partida').show()
+            $('.esperant_partida_text').show()
+            demanarDades({{user.id}});
+
+        }else{
+            console.log('0')
+            $('#boto_jugar').show();
+            $('.esperant_partida').hide()
+            $('.esperant_partida_text').hide()
+
+        }
+    }
+
+    function refreshRegistre() {
+        console.log('refreshregistre')
+        console.log('/{{ lang }}/user/registre/')
+        location.href = '/{{ lang }}/user/registre/'
+
+    }
+
+    function demanarDades(user) {
+        console.log('refresh registre')
+        $.ajax({
+            url: '/es/ws/demanar_dades/'+user+'/',
+            success: function(data) {
+                console.log(data)
+                if (data.jugant=="false") {
+                    if (data.error=="GAME DOES NOT EXIST"){
+                        window.location.href = '/{{ lang }}/user/logout'
+                    }else {
+                        setTimeout(function () {
+                            demanarDades(user);
+                        }, 1000);
+                    }
+                } else {
+                    // vamos al juego
+                    if (data.jugant=="true") {
+                        refreshRegistre()
+                    }
+                }
+            },
+            error: function(data) {
+                setTimeout(function(){demanarDades(user);}, 1000);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        console.log("Registre")
+        console.log("Waiting: " + {{waiting}})
+
+        getWaiting();
+
+        var game = '{{ game }}';
+
+        if (game == 'standard')$("#page_logo_1").show();
+        if (game == 'interact')$("#page_logo_2").show();
+        if (game == 'voice')$("#page_logo_3").show();
+        if (game == 'wall')$("#page_logo_4").show();
+
+    });
+
+</script>
+{% endblock %}

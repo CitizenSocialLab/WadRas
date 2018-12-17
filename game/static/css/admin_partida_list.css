@@ -1,0 +1,42 @@
+.titol_partides {
+    position: absolute;
+    top: 100px;
+    left: 20px;
+    width: 400px;
+    text-align: left;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+    text-decoration: underline;
+}
+
+#table_partides {
+    position: absolute;
+    top: 130px;
+    font-size:1.25em;
+}
+
+
+table {
+    border-collapse:collapse;
+    width: 100%;
+    width: 950px;
+}
+
+td {
+    width:100px;
+    height:25px;
+    text-align:center;
+}
+
+tr.spaceUnder > td
+{
+  padding-bottom: 2em;
+}
+tr:nth-child(even) {background-color: #f2f2f2}
+
+tbody div{
+    overflow:scroll;
+    height:440px;
+}
+

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+    <link href="/static/css/enquesta.css" rel="stylesheet" media="screen">
+{% endblock %}
+
+{% block title %}{{ text.bot1.titol_pagina }}{% endblock %}
+
+{% block content %}
+
+    <div class="topdiv-centered">
+
+        <div class="capsalera_background"></div>
+        <img class="page_logo" id="page_logo"/>
+        <!--<div class="page_title">{{ text.enquesta2.titol }}</div>-->
+        <!--<hr class="separador-top" />-->
+
+        <form method="post" action="/{{ lang }}/user/bot1">
+
+            <div class="pregunta1_bot1" hidden="True">
+                <div class="pr1_bot1_center"></div>
+                <div class="btn-toolbar" data-toggle="buttons">
+                    <input type="hidden" name="pr1_bot1" value="{{ pr1_bot1 }}">
+                    <button name="pr1_bot1" id="pr1_bot1_r1" value="Y" class="boto_gran bx bx-option {{ pr1_bot1_r1_checked }}" style="margin-top: 10px; margin-left: 150px;">{{ text.bot1.pr1_bot1_r1 }}</button>
+                    <button name="pr1_bot1" id="pr1_bot1_r2" value="N" class="boto_gran bx bx-option {{ pr1_bot1_r2_checked }}" style="margin-top: 10px;">{{ text.bot1.pr1_bot1_r2 }}</button>
+                </div>
+                <div class="error_space">
+                    {% if pr1_bot1_danger %} <span class="error">{{ text.common.error_opcio }}</span>{%  endif %}
+                </div>
+            </div>
+
+            <hr class="separador-bottom" />
+
+            <div class="page_button_right">
+                <button class="bx bx-push bx-redstencil" type="submit">{{ text.common.seguent }}</button>
+            </div>
+
+            <div class="page_button_left">
+                <button id="boto_sortir" type="button" onclick="location.href='/{{ lang }}/user/logout'" name="logout" class="bx-push bx bx-white" >
+                    {{ text.common.sortir_joc }}
+                </button>
+            </div>
+        </form>
+
+    </div> <!-- /container -->
+
+{% endblock %}
+
+{% block javascript %}
+    <script>
+
+    $(document).ready(function() {
+        console.log('hola')
+        console.log('{{game}}')
+
+        if ('{{game}}' == 'prisoner1') {
+            $(".pregunta1_bot1").show()
+            $(".pr1_bot1_center").html('{{text.bot1.pr1_bot1_prisoner1  | safe}}')
+            $("#page_logo").attr('src', '/static/img/water-logo-blanc-small.png');
+        }
+        if ('{{game}}' == 'prisoner2') {
+            $(".pregunta1_bot1").show()
+            $(".pr1_bot1_center").html('{{text.bot1.pr1_bot1_prisoner2  | safe}}')
+            $("#page_logo").attr('src', '/static/img/bread-logo-blanc-small.png');
+        }
+        if ('{{game}}' == 'dictator1') {
+            $(".pregunta1_bot1").show()
+            $(".pr1_bot1_center").html('{{text.bot1.pr1_bot1_dictator1  | safe}}')
+            $("#page_logo").attr('src', '/static/img/fruits-logo-blanc-small.png');
+        }
+
+        if ('{{game}}' == 'snowdrift1') {
+            $(".pregunta1_bot1").show()
+            $(".pr1_bot1_center").html('{{text.bot1.pr1_bot1_snowdrift1  | safe}}')
+            $("#page_logo").attr('src', '/static/img/kiss-logo-blanc-small.png');
+        }
+
+
+    });
+
+
+
+    </script>
+{% endblock %}

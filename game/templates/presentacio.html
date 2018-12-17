@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}{% endblock %}
+
+{% block stylesheet %}
+    <link href="/static/css/index.css" rel="stylesheet" media="screen">
+{% endblock %}
+
+{% block content %}
+    <div class="topdiv">
+
+        <div class="fons"></div>
+
+
+        <div class="text-benvinguda" hidden="">{{ text.main.main_text| safe }}</div>
+        <!--<img class="page_cenefa" src="/static/img/cenefa-vermell-reduced.png" id="page_cenefa"/>-->
+
+        <img src="/static/img/plain/game1.png" height="50px" width="50px" class="page_logo" id="page_logo_1" hidden/>
+        <img src="/static/img/plain/game2.png" height="50px" width="50px" class="page_logo" id="page_logo_2" hidden/>
+        <img src="/static/img/plain/game3.png" height="50px" width="50px" class="page_logo" id="page_logo_3" hidden/>
+        <img src="/static/img/plain/game4.png" height="50px" width="50px" class="page_logo" id="page_logo_4" hidden/>
+
+        <div class="capsalera_background"></div>
+
+        <div class="text-benvinguda2"></div>
+
+        <div class="logos_llenguatge">
+            <a href="/ca/game/presentacio">
+                <button class="bx bx-push bx-redstencilwhite logos_idioma">CAT</button>
+            </a>
+            <a href="/es/game/presentacio" class="logos_idioma">
+                <button class="bx bx-push bx-redstencilwhite logos_idioma">ESP</button>
+            </a>
+            <a href="/en/game/presentacio" class="logos_idioma">
+                <button class="bx bx-push bx-redstencilwhite logos_idioma">ENG</button>
+            </a>
+
+        </div>
+
+
+        <div class="vull-jugar">
+            <form method="post" action="/{{ lang }}/user/nickname">
+                <button class="bx bx-push bx-redstencil">
+                    {{ text.main.boto }}
+                </button>
+            </form>
+        </div>
+
+        <hr class="separador-bottom" />
+
+        <!--
+        <img id="imatge_logos" src="/static/img/logos/all_logos.png"/>
+        -->
+
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $("a").click(function (event) {
+            event.preventDefault();
+            window.location = $(this).attr("href");
+        });
+
+
+
+    $(document).ready(function() {
+
+        var game = '{{ game }}';
+
+        if (game == 'standard') {
+            $("#page_logo_1").show();
+            $(".text-benvinguda2").html('{{ text.main.joc_1 }}')
+        }
+        if (game == 'interact'){
+            $("#page_logo_2").show();
+            $(".text-benvinguda2").html('{{ text.main.joc_2 }}')
+        }
+        if (game == 'voice'){
+            $("#page_logo_3").show();
+            $(".text-benvinguda2").html('{{ text.main.joc_3 }}')
+        }
+        if (game == 'wall'){
+            $("#page_logo_4").show();
+            $(".text-benvinguda2").html('{{ text.main.joc_4 }}')
+        }
+
+
+    });
+
+
+    </script>
+
+{% endblock %}

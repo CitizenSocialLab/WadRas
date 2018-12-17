@@ -1,0 +1,249 @@
+/*********************/
+/******DICTATORS******/
+/*********************/
+
+
+.text_title1 {
+    position: absolute;
+    top: 120px;
+    left: 60px;
+    width: 610px;
+    font-size: 38px;
+    text-align: left;
+    font-weight: bolder;
+    color: #CD1919;
+}
+
+.text_info1 {
+    position: absolute;
+    top: 120px;
+    left: 60px;
+    width: 850px;
+    font-size: 24px;
+    text-align: left;
+}
+
+.text_pregunta1 {
+    position: absolute;
+    top: 200px;
+    left: 60px;
+    width: 850px;
+    font-size: 24px;
+    text-align: left;
+}
+
+.button-format-gran {
+    width:600px;
+    height:80px;
+    padding-top: 12px;
+}
+
+
+#button-opcio-1{
+    position: absolute;
+    top: 250px;
+    left: 200px;
+}
+
+#button-opcio-2{
+    position: absolute;
+    top: 340px;
+    left: 200px;
+}
+
+#button-opcio-3{
+    position: absolute;
+    top: 430px;
+    left: 200px;
+}
+
+#button-opcio-4{
+    position: absolute;
+    top: 460px;
+    left: 350px;
+}
+
+#button-opcio-5{
+    position: absolute;
+    top: 530px;
+    left: 350px;
+}
+
+.esperant_dictator {
+    position: absolute;
+    top: 355px;
+    left: 300px;
+    width: 400px;
+    text-align: center;
+}
+
+.esperant_dictator_text {
+    position: absolute;
+    top: 450px;
+    left: 300px;
+    width: 400px;
+    text-align: center;
+}
+
+.text_info2 {
+    position: absolute;
+    top: 190px;
+    left: 60px;
+    width: 850px;
+    font-size: 24px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.seleccio_dictator_text {
+    position: absolute;
+    top: 240px;
+    left: 60px;
+    width: 470px;
+    text-align: left;
+    font-size: 24px;
+}
+
+.seleccio_dictator {
+    position: absolute;
+    top: 240px;
+    left: 300px;
+    width: 470px;
+    text-align: left;
+    font-size: 24px;
+    font-weight: bold;
+    color: #CD1919;
+}
+
+.seleccio_dictator2_text {
+    position: absolute;
+    top: 280px;
+    left: 60px;
+    width: 470px;
+    text-align: left;
+    font-size: 24px;
+}
+
+.seleccio_dictator2 {
+    position: absolute;
+    top: 280px;
+    left: 300px;
+    width: 470px;
+    text-align: left;
+    font-size: 24px;
+    font-weight: bold;
+    color: #CD1919;
+}
+
+.text_info3 {
+    position: absolute;
+    top: 190px;
+    left: 500px;
+    width: 850px;
+    font-size: 24px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.seleccio_dictator_rival_text {
+    position: absolute;
+    top: 240px;
+    left: 500px;
+    width: 470px;
+    text-align: left;
+    font-size: 24px;
+}
+
+.seleccio_dictator_rival {
+    position: absolute;
+    top: 240px;
+    left: 740px;
+    width: 470px;
+    text-align: left;
+    font-size: 24px;
+    font-weight: bold;
+    color: #CD1919;
+}
+
+.seleccio_dictator_rival2_text {
+    position: absolute;
+    top: 280px;
+    left: 500px;
+    width: 470px;
+    text-align: left;
+    font-size: 24px;
+}
+
+.seleccio_dictator_rival2 {
+    position: absolute;
+    top: 280px;
+    left: 740px;
+    width: 470px;
+    text-align: left;
+    font-size: 24px;
+    font-weight: bold;
+    color: #CD1919;
+}
+
+.resultat_dictator_text {
+    position: absolute;
+    top: 330px;
+    left: 60px;
+    width: 470px;
+    text-align: left;
+    font-size: 24px;
+}
+
+.resultat_dictator {
+    position: absolute;
+    top: 330px;
+    left: 300px;
+    width: 470px;
+    text-align: left;
+    font-size: 24px;
+    font-weight: bold;
+    color: #CD1919;
+}
+
+.resultat_dictator_punts {
+    position: absolute;
+    top: 370px;
+    left: 300px;
+    width: 470px;
+    text-align: left;
+    font-size: 24px;
+    font-weight: bold;
+    color: #CD1919;
+}
+
+.resultat_dictator_rival_text {
+    position: absolute;
+    top: 330px;
+    left: 500px;
+    width: 470px;
+    text-align: left;
+    font-size: 24px;
+}
+
+.resultat_dictator_rival {
+    position: absolute;
+    top: 330px;
+    left: 740px;
+    width: 470px;
+    text-align: left;
+    font-size: 24px;
+    font-weight: bold;
+    color: #CD1919;
+}
+
+.resultat_dictator_rival_punts {
+    position: absolute;
+    top: 370px;
+    left: 740px;
+    width: 470px;
+    text-align: left;
+    font-size: 24px;
+    font-weight: bold;
+    color: #CD1919;
+}
+

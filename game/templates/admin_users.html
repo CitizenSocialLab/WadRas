@@ -1,0 +1,89 @@
+{% extends "admin.html" %}
+
+
+{% block stylesheet %}
+    <link href="/static/css/admin.css" rel="stylesheet" media="screen">
+    <link href="/static/css/admin_users.css" rel="stylesheet" media="screen">
+{% endblock %}
+
+
+{% block content_admin %}
+    <div class="titol_actius">Active Users</div>
+    <div id="table_users"></div>
+    <div class="page_button_left"> <button class="bx bx-push bx-redstencil" type="button" onclick="user_list()" name="list">List Users</button></div>
+    <div class="page_button_right"> <button class="bx bx-push bx-redstencil" type="button" onclick="user_results()" name="list">Results Users</button></div>
+
+
+{% endblock %}
+table_users_acabada
+
+{% block javascript %}
+
+        <script>
+
+            function user_list() {
+                window.location.href = '/es/admin/users_list'
+            }
+
+            function user_results() {
+                window.location.href = '/es/admin/users_results'
+            }
+
+            function update_estat() {
+                $.ajax({
+                    url: '/es/ws/estat_users/',
+                    success: function(data) {
+
+                        console.log(data)
+                        $("#table_users").empty();
+                        var table = '<table style="width=50%;">';
+
+                        table+="<tr style=cellpadding:10;>";
+                        table+="<td style=font-size:14px;font-weight:bold;width:60px;cell>ID</td>";
+                        table+="<td style=font-size:14px;font-weight:bold;width:120px;cell>STATE</td>";
+                        table+="<td style=font-size:14px;font-weight:bold;width:100px;cell>SESSION</td>";
+                        table+="<td style=font-size:14px;font-weight:bold;width:60px;cell>GAME</td>";
+                        table+="<td style=font-size:14px;font-weight:bold;width:100px;cell>CLASS</td>";
+                        table+="<td style=font-size:14px;font-weight:bold;width:100px;cell>STATE</td>";
+                        table+="<td style=font-size:14px;font-weight:bold;width:150px;cell>PLAYED</td>";
+                        table+="<td style=font-size:14px;font-weight:bold;width:150px;cell>NOT-PLAYED</td>";
+
+                        table+="</tr>";
+                        if (data.users.length != 0) {
+                            for (var i = 0; i < data.users.length; i++) {
+
+                                table += "<tr style='cellpadding:10;'>";
+                                table += "<td style=font-size:14px;font-weight:bold;cell>" + data.users[i].id + "</td>";
+                                table += "<td style=font-size:14px;cell>" + data.users[i].estat_user + "</td>";
+                                table += "<td style=font-size:14px;cell>" + data.users[i].session_game + "</td>";
+                                table += "<td style=font-size:14px;font-weight:bold;cell>" + data.users[i].partida + "</td>";
+                                table += "<td style=font-size:14px;cell>" + data.users[i].classe + "</td>";
+                                table += "<td style=font-size:14px;cell>" + data.users[i].estat + "</td>";
+                                table += "<td style=font-size:14px;cell>" + data.users[i].jugades + "</td>";
+                                table += "<td style=font-size:14px;cell>" + data.users[i].no_jugades + "</td>";
+                                table += "</tr>";
+
+                            }
+                        }else{
+                            table+="<tr style='cellpadding:10;'>";
+                            table+="<td colspan=8 style=font-size:16px;font-weight:bold;cell>NO HI HA PARTIDES ACTIVES</td>";
+                            table+="</tr>";
+                        }
+                        $("#table_users").append(table);
+
+
+                        setTimeout(function(){update_estat()}, 500);
+                    },
+                    error: function(data) {
+                        setTimeout(function(){update_estat()}, 500);
+                    }
+                });
+            }
+
+
+            $(document).ready(function() {
+                update_estat();
+            });
+        </script>
+
+{% endblock %}

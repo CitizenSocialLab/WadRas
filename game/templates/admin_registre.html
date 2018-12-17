@@ -1,0 +1,99 @@
+{% extends "admin.html" %}
+
+
+{% block stylesheet %}
+    <link href="/static/css/admin.css" rel="stylesheet" media="screen">
+    <link href="/static/css/admin_registre.css" rel="stylesheet" media="screen">
+
+{% endblock %}
+
+
+{% block content_admin %}
+
+        <div id="llista_usuaris_titol">
+            Users Activity
+        </div>
+
+        <div id="llista_usuaris"></div>
+        <div id="error"></div>
+
+        <!--<form method="post" action="/{{ lang }}/admin/registre">
+
+            <button id="boto_iniciar" type="submit" name="registre" class="bx-push bx bx-redstencil" hidden="">
+                Empezar!!
+            </button>
+        </form>-->
+
+
+
+{% endblock %}
+
+{% block javascript %}
+
+        <script>
+            function update_list() {
+
+                $.ajax({
+                    url: '/es/ws/usuaris_registrats/',
+                    success: function(data) {
+
+
+                            mytext = '<table width="90%"><tr>'+
+                                    '<th style="font-size:15px;font-weight:bold;width:90px;">'+ "ID" + '</th>'+
+                                    '<th style="font-size:15px;font-weight:bold">'+ "NUM" + '</th>'+
+                                    '<th style="font-size:15px;font-weight:bold">' + "STATUS" +'</th>'+
+                                    '<th style="font-size:15px;font-weight:bold">' + "SESSION" +'</th>'+
+                                    '<th style="font-size:15px;font-weight:bold;width:90px;">' + "GAME" +'</th>'+
+                                    '<th style="font-size:15px;font-weight:bold">' + "CLASS" +'</th>'+
+                                    '<th style="font-size:15px;font-weight:bold">' + "STATUS" +'</th>'+
+                                    '</tr></table>';
+                        if (data.users_actives > 0) {
+
+
+                            for (i = 0; i < data.usuaris.length; i++) {
+
+                                if (data.usuaris[i].status == "Logged-Out"){
+                                    style_error = "font-size:14px;font-weight:bold;"
+                                }else{
+                                    style_normal = "font-size:14px;"
+                                }
+
+                                mytext += '<table width="90%"><tr>' +
+                                        '<td style="font-size:14px;width:90px;"><b>' + data.usuaris[i].uid + '</b></td>' +
+                                        '<td style="font-size:14px;">' + data.usuaris[i].nickname + '</td>'
+                                if(data.usuaris[i].status == "Logged-Out") {
+                                    mytext +='<td style=font-size:16px;font-weight:bold;color:#CD1919>' + data.usuaris[i].status + '</td>'
+                                }else{
+                                    mytext +='<td style=font-size:14px;>' + data.usuaris[i].status + '</td>'
+                                }
+                                mytext +='<td style="font-size:14px">' + data.usuaris[i].session + '</td>' +
+                                        '<td style="font-size:14px;width:90px"><b>' + data.usuaris[i].current_game + '</td>' +
+                                        '<td style="font-size:14px">' + data.usuaris[i].current_game_classe + '</td>' +
+                                        '<td style="font-size:14px">' + data.usuaris[i].current_game_status + '</td>' +
+                                        '</tr></table>'
+                                $('#llista_usuaris').html(mytext);
+                            }
+                        }else{
+                            mytext += '<table width="90%"><tr>' +
+                                      '<td colspan="8" style="font-size:14px;width:90px;align-content: center"> NO USERS </td>' +
+                                      '</tr></table>'
+                            $('#llista_usuaris').html(mytext);
+
+                        }
+                        setTimeout(function(){update_list()}, 1000);
+                    },
+                    error: function(data) {
+                         setTimeout(function(){update_list()}, 1000);
+                    }
+                });
+            }
+
+            $(document).ready(function() {
+                update_list();
+            });
+        </script>
+
+
+
+{% endblock %}
+

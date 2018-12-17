@@ -1,0 +1,131 @@
+/*********************/
+/******SNOWDRIFT******/
+/*********************/
+
+
+.text_title1 {
+    position: absolute;
+    top: 120px;
+    left: 60px;
+    width: 610px;
+    font-size: 38px;
+    text-align: left;
+    font-weight: bolder;
+    color: #CD1919;
+}
+
+.text_intro1 {
+    position: absolute;
+    top: 120px;
+    left: 60px;
+    width: 850px;
+    font-size: 24px;
+    text-align: left;
+}
+
+.text_intro2 {
+    position: absolute;
+    top: 200px;
+    left: 60px;
+    width: 850px;
+    font-size: 24px;
+    text-align: left;
+}
+
+.text_intro3 {
+    position: absolute;
+    top: 250px;
+    left: 60px;
+    width: 850px;
+    font-size: 24px;
+    text-align: left;
+}
+
+
+.button-format-mitja {
+    width:300px;
+    height:80px;
+    padding-top: 12px;
+}
+
+
+#button-opcio-1{
+    position: absolute;
+    top: 440px;
+    left: 120px;
+}
+
+#button-opcio-2{
+    position: absolute;
+    top: 440px;
+    left: 560px;
+}
+
+.esperant_snowdrift {
+    position: absolute;
+    top: 355px;
+    left: 300px;
+    width: 400px;
+    text-align: center;
+}
+
+.esperant_snowdrift_text {
+    position: absolute;
+    top: 450px;
+    left: 300px;
+    width: 400px;
+    text-align: center;
+}
+
+.seleccio_snowdrift_text {
+    position: absolute;
+    top: 420px;
+    left: 160px;
+    width: 470px;
+    text-align: left;
+    font-size: 24px;
+}
+
+.seleccio_snowdrift {
+    position: absolute;
+    top: 460px;
+    left: 160px;
+    width: 470px;
+    text-align: left;
+    font-size: 24px;
+    font-weight: bold;
+    color: #CD1919;
+}
+
+.seleccio_snowdrift_rival_text {
+    position: absolute;
+    top: 420px;
+    left: 530px;
+    width: 470px;
+    text-align: left;
+    font-size: 24px;
+}
+
+.seleccio_snowdrift_rival{
+    position: absolute;
+    top: 460px;
+    left: 530px;
+    width: 470px;
+    text-align: left;
+    font-size: 24px;
+    font-weight: bold;
+    color: #CD1919;
+}
+
+.text_efecte {
+    position: absolute;
+    top: 520px;
+    left: 60px;
+    width: 850px;
+    font-size: 26px;
+    text-align: center;
+    font-weight: bold;
+    color: #CD1919;
+}
+
+
