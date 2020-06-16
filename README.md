@@ -94,11 +94,11 @@ Control and Administration:
 Version 1.0
 
 ## License ##
-CitizenSocialLab | WadRas (c) by Julian Vicens
+CitizenSocialLab | Wad-Ras (c) by Julian Vicens
 
-CitizenSocialLab | WadRas is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+CitizenSocialLab is licensed under a [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.txt)
 
-You should have received a copy of the license along with this work. If not, see [CC BY-NC-SA license](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+All the contents of Wad-Ras repository are under the license [CC BY-NC-SA license](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 ## Contributors ##
 
